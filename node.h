@@ -11,9 +11,17 @@ template <typename T>
 class Node {
     private:
         T data;
-        Node<T> *left;
-        Node<T> *right;
-
+        Node<T> *left=nullptr;
+        Node<T> *right=nullptr;
+public:
+    Node<T>(T d){
+        data=d;
+    }
+    void SuicidioMasivo(){
+        if(this->right) this->right->SuicidioMasivo();
+        if(this->left) this->left->SuicidioMasivo();
+        delete this;
+    }
     template<class>
     friend class BSTree; 
 

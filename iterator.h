@@ -14,27 +14,28 @@ class Iterator {
         }
 
         Iterator(Node<T> *node) {
-            // TODO
+            current=node;
         }
 
         Iterator<T> operator=(Iterator<T> other) {          
-            // TODO
+            current=other->current;
+            return other;
         }
 
         bool operator!=(Iterator<T> other) {
-            // TODO
+            return this->current!=other->current;
         }
 
         Iterator<T> operator++() {
-            // TODO
+
         }
 
         Iterator<T> operator--() {
-            // TODO
+
         }
 
         T operator*() {
-            // TODO
+            return current->data;
         }
 };
 
