@@ -18,12 +18,12 @@ class Iterator {
         }
 
         Iterator<T> operator=(Iterator<T> other) {          
-            current=other->current;
+            current=other.current;
             return other;
         }
 
         bool operator!=(Iterator<T> other) {
-            return this->current!=other->current;
+            return this->current!=other.current;
         }
 
         Iterator<T> operator++() {

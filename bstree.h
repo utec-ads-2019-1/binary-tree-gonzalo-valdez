@@ -8,7 +8,7 @@ template <typename T>
 class BSTree {
     private:
         Node<T> *root;
-        int sz=0;
+        unsigned int sz=0;
     public:
         BSTree() : root(nullptr) {};
 
@@ -19,15 +19,12 @@ class BSTree {
                     if(data > n->data) {
                         if(n->right)
                             n = n->right;
-                        else
-                            return false;
+                        else return false;
                     }
-
                     if(data < n->data) {
                         if(n->left)
                             n = n->left;
-                        else
-                            return false;
+                        else return false;
                     }
                 }
                 return true;
@@ -35,42 +32,53 @@ class BSTree {
         } 
 
         bool insert(T data) {
-            if(root==nullptr){
-                Node<T>* n = new Node<T>(data);
-                root=n;
-                this->sz++;
-                return true;
-            }
-            if (!find(data)){
-                Node<T>* nodo = new Node<T>(data);
-                Node<T>* current = root;
-                while(current->left or current->right){
-                    if(data > current->data and current->right)
-                        current=current->right;
-                    else
-                        break;
+            Node<T>* temp= new Node<T>(data);
+            Node<T> **ptr=&root;
+            while(*ptr!=nullptr)
+            {
+                if(data>(*ptr)->data)
+                    ptr=&((*ptr)->right);
 
-                    if(data < current->data and current->left)
-                        current=current->left;
-                    else
-                        break;
-                }
-                if(data>current->data)
-                    current->right=nodo;
-                else
-                    current->left=nodo;
-                this->sz++;
-                return true;
-            } else {
-                return false;
+                if(data<(*ptr)->data)
+                    ptr=&((*ptr)->left);
             }
+            *ptr=temp;
         }
 
         bool remove(T data) {
-            if(!find(data)){
+            if(find(data)){
                 this->sz--;
                 Node<T>* current=root;
-                // ya me rendi
+                Node<T>** prevptr=&current;
+                while(current->data!=data){
+                    if(current->data < data) {
+                        prevptr = &(current->right);
+                        current = current->right;
+                    } else {
+                        prevptr = &(current->left);
+                        current = current->left;
+                    }
+                }
+                if(current->right && current->left){
+                    Node<T>* maxleft=current->left;
+                    while(maxleft->right!=nullptr){
+                        maxleft=maxleft->right;
+                    }
+                    current->data = maxleft->data;
+                    remove(maxleft->data);
+                    delete current;
+                } else if(current->right || current->left){
+                    if(current->right){
+                        *prevptr=current->right;
+                        delete current;
+                    } else if(current->left){
+                        *prevptr=current->left;
+                        delete current;
+                    }
+                } else if(!current->right && !current->left){
+                    *prevptr=nullptr;
+                    delete current;
+                }
             } else
                 return false;
         }
