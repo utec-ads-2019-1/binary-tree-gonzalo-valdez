@@ -64,8 +64,9 @@ class BSTree {
                     while(maxleft->right!=nullptr){
                         maxleft=maxleft->right;
                     }
-                    current->data = maxleft->data;
+                    T temp = maxleft->data;
                     remove(maxleft->data);
+                    current->data = temp;
                     delete current;
                 } else if(current->right || current->left){
                     if(current->right){
@@ -87,16 +88,40 @@ class BSTree {
             return this->sz;
         }
 
+        void Inorder(Node<T>* node) {
+            if (node == nullptr)
+                return;
+            Inorder(node->left);
+            cout << node->data << " ";
+            Inorder(node->right);
+        }
+
+        void Preorder(Node<T>* node) {
+            if (node == nullptr)
+                return;
+            cout << node->data << " ";
+            Preorder(node->left);
+            Preorder(node->right);
+        }
+
+        void Postorder(Node<T>* node) {
+            if (node == nullptr)
+                return;
+            Postorder(node->left);
+            Postorder(node->right);
+            cout << node->data << " ";
+        }
+
         void traversePreOrder() {
-            // TODO
+            Preorder(root);
         }
 
         void traverseInOrder() {
-            // TODO
+            Inorder(root);
         }
 
         void traversePostOrder() {
-            // TODO
+            Postorder(root);
         }
 
         Iterator<T> begin() {
@@ -110,6 +135,7 @@ class BSTree {
         Iterator<T> end() {
             Node<T>* current = root;
             while(current->right){
+
                 current=current->right;
             }
             return current;
@@ -117,6 +143,7 @@ class BSTree {
 
         ~BSTree() {
            root->SuicidioMasivo();
+           delete this;
         }
 };
 
