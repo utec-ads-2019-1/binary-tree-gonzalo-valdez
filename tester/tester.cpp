@@ -7,6 +7,7 @@ void Tester::execute() {
         unsigned int size = mocker.generateRandomInt(10);
         int* elements = mocker.generateRandomArray<int>(size);
         testBSFTree<int>(mocker, vector<int>(elements, elements + size));
+        cout << "Test passed " << i + 1 << "/" << NUMBER_OF_TESTS << endl;
     }
 }
 

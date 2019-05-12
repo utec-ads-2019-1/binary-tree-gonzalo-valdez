@@ -29,9 +29,12 @@ class BSTree {
                 }
                 return true;
             }
+
+            // Falta retornar el bool para el caso vacío
         } 
 
         bool insert(T data) {
+            // Tiene errores
             Node<T>* temp= new Node<T>(data);
             Node<T> **ptr=&root;
             while(*ptr!=nullptr)
@@ -43,6 +46,7 @@ class BSTree {
                     ptr=&((*ptr)->left);
             }
             *ptr=temp;
+            // Falta retornar el bool
         }
 
         bool remove(T data) {
@@ -82,6 +86,8 @@ class BSTree {
                 }
             } else
                 return false;
+
+                // Falta retornar el bool
         }
 
         unsigned int size() {
@@ -142,6 +148,7 @@ class BSTree {
         }
 
         ~BSTree() {
+            // Falta considerar el caso vacío
            root->SuicidioMasivo();
            delete this;
         }
