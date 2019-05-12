@@ -15,6 +15,7 @@ class BSTree {
         bool find(T data) {
             if (root!=nullptr){
                 Node<T>* n = root;
+                // Cuándo verificas que es igual?
                 while(n->data!=data){
                     if(data > n->data) {
                         if(n->right)
